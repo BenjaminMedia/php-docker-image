@@ -9,7 +9,7 @@ on:
   - cron: "0 0 * * *"
 
   push:
-    branches: [ 'php7.4', 'php7.4-npm', 'php7.3', 'php7.2' ]
+    branches: [ 'php7.4', 'php7.4-node', 'php7.3', 'php7.2' ]
 
 jobs:
   docker_build_push: 
