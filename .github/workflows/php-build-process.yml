@@ -36,5 +36,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Push to DockerHub
+    - name: Push tag ${{ steps.vars.outputs.short_ref }} to DockerHub
       run: docker push ${{ env.docker_registry }}/${{ env.docker_repo }}:${{ steps.vars.outputs.short_ref }}
+
+    - name: Push tag ${{ steps.vars.outputs.short_ref }}_${{ steps.date.outputs.date }} to DockerHub
+      run: docker push ${{ env.docker_registry }}/${{ env.docker_repo }}:${{ steps.vars.outputs.short_ref }}_${{ steps.date.outputs.date }}
