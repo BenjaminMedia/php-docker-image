@@ -2,6 +2,9 @@ name: php7.2 - Weekly Image Release
 on: 
   schedule:
     - cron: "0 * * * *"
+    
+  branches:
+    - php7.2
 
 jobs:
   build:
