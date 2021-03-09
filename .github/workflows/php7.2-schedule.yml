@@ -1,4 +1,4 @@
-name: php7.4 - Weekly Image Release
+name: php7.2 - Weekly Image Release
 
 env:
   docker_registry: bonnierpublications
@@ -7,7 +7,7 @@ env:
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 0 * * 0"
 
 jobs:
   build:
@@ -26,7 +26,6 @@ jobs:
             password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build the Docker image
-        id: docker_build
         run: docker build -f ${{ env.docker_tag }}/Dockerfile -t ${{ env.docker_registry }}/${{ env.docker_repo }}:${{ env.docker_tag }} -t ${{ env.docker_registry }}/${{ env.docker_repo }}:${{ env.docker_tag }}_${{ steps.date.outputs.date }} .
         
       - name: Push tag ${{ env.docker_tag }} to DockerHub
