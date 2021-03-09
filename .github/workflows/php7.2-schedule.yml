@@ -1,10 +1,12 @@
 name: php7.2 - Weekly Image Release
-on: 
+
+env:
+  docker_registry: bonnierpublications
+  docker_repo: 'php-alpine'
+
+on:
   schedule:
     - cron: "*/5 * * * *"
-    
-  branches:
-    - php7.2
 
 jobs:
   build:
@@ -12,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: php7.2
+          ref: 'php7.2'
 
       - name: Set output
         id: vars
