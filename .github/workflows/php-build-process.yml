@@ -1,13 +1,10 @@
-name: Docker Image CI
+name: Build and Deploy Image
 
 env:
   docker_registry: bonnierpublications
   docker_repo: 'php-alpine'
 
 on:
-  schedule:
-  - cron: "0 0 * * *"
-
   push:
     branches: [ 'php7.4', 'php7.4-node', 'php7.3', 'php7.2' ]
 
