@@ -30,6 +30,23 @@ RUN apk add \
     git \
     curl
 
+RUN set -ex && apk --no-cache add libxml2-dev
+RUN docker-php-ext-install xmlrpc
+
+# Install intl extension
+RUN apk add --no-cache \
+    icu-dev \
+    && docker-php-ext-install -j$(nproc) intl \
+    && docker-php-ext-enable intl \
+    && rm -rf /tmp/*
+
+# Install mbstring extension
+RUN apk add --no-cache \
+    oniguruma-dev \
+    && docker-php-ext-install mbstring \
+    && docker-php-ext-enable mbstring \
+    && rm -rf /tmp/*
+
 # php-redis
 ENV PHPREDIS_VERSION 5.3.2
 

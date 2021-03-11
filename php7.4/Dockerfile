@@ -4,29 +4,6 @@ LABEL maintainer="paris@bonnier.dk"
 RUN apk update
 RUN apk add build-base
 
-# Install GD extension
-RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
-    docker-php-ext-configure gd \
-    --with-freetype \
-    --with-jpeg \
-    NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-    docker-php-ext-install -j$(nproc) gd && \
-    apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev
-
-# Install intl extension
-RUN apk add --no-cache \
-    icu-dev \
-    && docker-php-ext-install -j$(nproc) intl \
-    && docker-php-ext-enable intl \
-    && rm -rf /tmp/*
-
-# Install mbstring extension
-RUN apk add --no-cache \
-    oniguruma-dev \
-    && docker-php-ext-install mbstring \
-    && docker-php-ext-enable mbstring \
-    && rm -rf /tmp/*
-
 # Install NGINX
 RUN apk add nginx supervisor
 
@@ -49,6 +26,29 @@ RUN apk add \
     unzip \
     git \
     curl
+
+# Install GD extension
+RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
+    docker-php-ext-configure gd \
+    --with-freetype \
+    --with-jpeg \
+    NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+    docker-php-ext-install -j$(nproc) gd && \
+    apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev
+
+# Install intl extension
+RUN apk add --no-cache \
+    icu-dev \
+    && docker-php-ext-install -j$(nproc) intl \
+    && docker-php-ext-enable intl \
+    && rm -rf /tmp/*
+
+# Install mbstring extension
+RUN apk add --no-cache \
+    oniguruma-dev \
+    && docker-php-ext-install mbstring \
+    && docker-php-ext-enable mbstring \
+    && rm -rf /tmp/*
 
 # php-redis
 ENV PHPREDIS_VERSION 5.3.2
